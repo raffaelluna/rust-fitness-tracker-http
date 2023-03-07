@@ -6,5 +6,5 @@ A simple Rest API to make database operations.
 
 # TODOs
 
-- [ ] Create API endpoints;
+- [x] Create API endpoints;
 - [ ] Connect endpoints to database;
