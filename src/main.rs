@@ -8,6 +8,8 @@ use serde::{Deserialize, Serialize};
 #[macro_use]
 extern crate rocket;
 
+pub mod repository;
+
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Exercise {
     exercise_name: String,
