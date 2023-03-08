@@ -9,7 +9,10 @@ use serde::{Deserialize, Serialize};
 #[macro_use]
 extern crate rocket;
 
-pub mod repository;
+mod error;
+mod prelude;
+mod repository;
+mod utils;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Exercise {
