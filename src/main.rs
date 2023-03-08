@@ -1,3 +1,4 @@
+use repository::surrealdb_repo::DbFairing;
 use rocket::figment::providers::{Format, Toml};
 use rocket::figment::Figment;
 use rocket::response::content::RawHtml;
@@ -33,12 +34,12 @@ impl Exercise {
 }
 
 #[get("/")]
-fn index() -> RawHtml<&'static str> {
+async fn index() -> RawHtml<&'static str> {
     RawHtml("<h1>Trolebus!</h1>")
 }
 
 #[post("/", data = "<workout>")]
-fn add_workout(workout: Json<Workout>) {
+async fn add_workout(workout: Json<Workout>) {
     let mut msg_string = format!(
         "Got a valid {} workout, done at {}.\nExercises:\n",
         workout.targeted_muscles, workout.workout_date
@@ -61,7 +62,10 @@ fn add_workout(workout: Json<Workout>) {
 #[launch]
 fn rocket() -> _ {
     let config = Figment::from(Config::default())
-        .merge(Toml::file("Rocket.toml").nested());
+        .merge(Toml::file("Rocket.toml").nested())
+        .merge(Toml::file("App.toml").nested());
 
-    rocket::custom(config).mount("/", routes![index, add_workout])
+    rocket::custom(config)
+        .mount("/", routes![index, add_workout])
+        .attach(DbFairing)
 }
