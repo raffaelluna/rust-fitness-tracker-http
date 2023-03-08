@@ -25,7 +25,7 @@ impl TryFrom<W<Value>> for i64 {
     type Error = Error;
     fn try_from(val: W<Value>) -> Result<i64, Error> {
         match val.0 {
-            Value::Number(num) => Ok(num),
+            Value::Number(num) => Ok(num.as_int()),
             _ => Err(Error::XValueNotOfType("i64")),
         }
     }
