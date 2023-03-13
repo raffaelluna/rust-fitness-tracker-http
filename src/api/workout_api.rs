@@ -1,10 +1,23 @@
-use crate::model::workout_model::{Exercise, Workout};
-use rocket::response::content::RawHtml;
+use crate::model::workout_model::Workout;
+use crate::repository::surrealdb_repo::SurrealDBRepo;
 use rocket::serde::json::Json;
+use rocket::State;
+use surrealdb::sql::Object;
 
-#[get("/")]
-pub async fn index() -> RawHtml<&'static str> {
-    RawHtml("<h1>Trolebus!</h1>")
+#[get("/workout/<targeted_muscles>/<done_at>")]
+pub async fn get_workout(
+    targeted_muscles: &str,
+    done_at: &str,
+    db: &State<SurrealDBRepo>,
+) -> Result<Json<Object>, std::io::Error> {
+    todo!()
+}
+
+#[get("/workouts")]
+pub async fn get_all_workouts(
+    db: &State<SurrealDBRepo>,
+) -> Result<Json<Vec<Object>>, std::io::Error> {
+    todo!()
 }
 
 #[post("/", data = "<workout>")]

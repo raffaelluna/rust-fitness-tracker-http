@@ -1,9 +1,11 @@
+use crate::model::workout_model::{Exercise, Workout};
 use rocket::fairing::{Fairing, Info, Kind};
 use rocket::{Build, Rocket};
 use serde::Deserialize;
+use std::collections::BTreeMap;
 use std::sync::Arc;
-use surrealdb::sql::Value;
-use surrealdb::{Datastore, Error, Session};
+use surrealdb::sql::{Object, Value};
+use surrealdb::{Datastore, Error, Response, Session};
 
 pub trait Creatable: Into<Value> {}
 pub trait Patchable: Into<Value> {}
@@ -24,6 +26,35 @@ impl SurrealDBRepo {
             ds: Arc::new(Datastore::new(datastore).await.unwrap()),
             ses: Session::for_kv().with_ns(namespace).with_db(database),
         })
+    }
+
+    pub async fn execute(
+        &self,
+        query: &str,
+        vars: Option<BTreeMap<String, Value>>,
+    ) -> Result<Vec<Response>, crate::error::Error> {
+        todo!()
+    }
+
+    pub async fn add_workout(
+        &self,
+        workout: Workout,
+    ) -> Result<Object, crate::error::Error> {
+        todo!()
+    }
+
+    pub async fn get_workout(
+        &self,
+        targeted_muscles: &str,
+        done_at: &str,
+    ) -> Result<Object, crate::error::Error> {
+        todo!()
+    }
+
+    pub async fn get_all_workouts(
+        &self,
+    ) -> Result<Vec<Object>, crate::error::Error> {
+        todo!()
     }
 }
 
