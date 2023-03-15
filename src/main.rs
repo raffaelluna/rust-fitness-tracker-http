@@ -1,4 +1,4 @@
-use api::workout_api::{add_workout, index};
+use api::workout_api::{add_workout, get_all_workouts, get_workout};
 use repository::surrealdb_repo::DbFairing;
 use rocket::figment::providers::{Format, Toml};
 use rocket::figment::Figment;
@@ -22,6 +22,6 @@ fn rocket() -> _ {
         .merge(Toml::file("App.toml").nested());
 
     rocket::custom(config)
-        .mount("/", routes![index, add_workout])
+        .mount("/", routes![add_workout, get_workout, get_all_workouts])
         .attach(DbFairing)
 }

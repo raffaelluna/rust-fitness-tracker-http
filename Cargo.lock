@@ -2638,6 +2638,7 @@ dependencies = [
  "serde_json",
  "surrealdb",
  "thiserror",
+ "uuid",
 ]
 
 [[package]]
